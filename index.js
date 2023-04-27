@@ -20,7 +20,7 @@ app.use(logger);
 
 // 更新计数
 app.post('/api/media_check', async (req, res) => {
-  const { media_url } = req.query;
+  const { media_url } = req.body;
 
   request.post(
     {
@@ -34,7 +34,6 @@ app.post('/api/media_check', async (req, res) => {
       },
     },
     function (error, response, body) {
-      console.log('============', error, body);
       if (!error) {
         res.send(body);
       } else {
