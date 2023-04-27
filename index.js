@@ -19,24 +19,25 @@ app.use(logger);
 // });
 
 // 更新计数
-app.post('/api/media_check', async (req, res) => {
-  const { media_url } = req.body;
+app.get('/api/media_check', async (req, res) => {
+  const { media_url } = req.query;
 
-  request({
+  request.post({
     url: 'https://api.weixin.qq.com/wxa/media_check_async',
-    method: 'POST',
-    body: JSON.stringify({
+    json: {
       openid: req.headers['x-wx-openid'],
       version: 2,
       scene: 1,
       media_type: 2,
       media_url,
-    }, function (error, response) {
+    }, function (error, response, body) {
+      console.log('============', error, response, body);
       if (!error) {
-        console.log('============', response)
-        res.send(response.body);
+        res.send(JSON.parse(body));
+      } else {
+        res.send(error);
       }
-    }),
+    },
   });
 });
 
