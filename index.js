@@ -22,23 +22,26 @@ app.use(logger);
 app.get('/api/media_check', async (req, res) => {
   const { media_url } = req.query;
 
-  request.post({
-    url: 'https://api.weixin.qq.com/wxa/media_check_async',
-    json: {
-      openid: req.headers['x-wx-openid'],
-      version: 2,
-      scene: 1,
-      media_type: 2,
-      media_url,
-    }, function (error, response, body) {
-      console.log('============', error, response, body);
+  request.post(
+    {
+      url: 'https://api.weixin.qq.com/wxa/media_check_async',
+      json: {
+        openid: req.headers['x-wx-openid'],
+        version: 2,
+        scene: 1,
+        media_type: 2,
+        media_url,
+      },
+    },
+    function (error, response, body) {
+      console.log('============', error, body);
       if (!error) {
-        res.send(JSON.parse(body));
+        res.send(body);
       } else {
         res.send(error);
       }
     },
-  });
+  );
 });
 
 // 小程序调用，获取微信 Open ID
