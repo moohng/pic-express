@@ -19,7 +19,7 @@ app.use(logger);
 // });
 
 // 更新计数
-app.get('/api/media_check', async (req, res) => {
+app.post('/api/media_check', async (req, res) => {
   const { media_url } = req.query;
 
   request.post(
