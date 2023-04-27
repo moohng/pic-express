@@ -32,7 +32,10 @@ app.post('/api/media_check', async (req, res) => {
       media_type: 2,
       media_url,
     }, function (error, response) {
-      res.send(JSON.parse(response.body));
+      if (!error) {
+        console.log('============', response)
+        res.send(response.body);
+      }
     }),
   });
 });
