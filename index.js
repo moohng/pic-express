@@ -30,7 +30,7 @@ app.post('/api/media_check', async (req, res) => {
         version: 2,
         scene: 1,
         media_type: 2,
-        media_url,
+        media_url: media_url,
       },
     },
     function (error, response, body) {
