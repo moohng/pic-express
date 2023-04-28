@@ -43,6 +43,14 @@ app.post('/api/media_check', async (req, res) => {
   );
 });
 
+/**
+ * 异步推送接口
+ */
+app.post('/api/media_check/push', async (req, res) => {
+  console.log('------------=========', req.body);
+  res.send('success');
+});
+
 // 小程序调用，获取微信 Open ID
 app.get('/api/wx_openid', async (req, res) => {
   if (req.headers['x-wx-source']) {
