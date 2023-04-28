@@ -47,6 +47,20 @@ app.post('/api/media_check', async (req, res) => {
 });
 
 /**
+ * 获取图片检测结果
+ */
+app.get('/api/media_check_result', async (req, res) => {
+  const { trace_id } = req.query;
+
+  const item = await MediaCheckResult.findOne({ where: { trace_id } });
+  if (!item) {
+    res.send({ code: 100, msg: '未找到检测结果' });
+  } else {
+    res.send(JSON.parse(item.result));
+  }
+});
+
+/**
  * 异步推送接口
  */
 app.post('/api/media_check_push', async (req, res) => {
