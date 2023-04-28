@@ -3,7 +3,8 @@ const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
 const request = require('request');
-// const { init: initDB, Counter } = require('./db');
+const { init: initDB } = require('./models/db');
+const { MediaCheckResult } = require('./models/MediaCheckResult');
 
 const logger = morgan('tiny');
 
@@ -18,7 +19,9 @@ app.use(logger);
 //   res.sendFile(path.join(__dirname, 'index.html'));
 // });
 
-// 更新计数
+/**
+ * 图片安全检测
+ */
 app.post('/api/media_check', async (req, res) => {
   const { media_url } = req.body;
 
@@ -47,7 +50,11 @@ app.post('/api/media_check', async (req, res) => {
  * 异步推送接口
  */
 app.post('/api/media_check_push', async (req, res) => {
-  console.log('------------=========', req.body);
+  const { trace_id } = req.body;
+  console.log('------------=========', trace_id, JSON.stringify(req.body));
+
+  await MediaCheckResult.create({ trace_id, result: JSON.stringify(req.body) });
+
   res.send('success');
 });
 
@@ -61,7 +68,7 @@ app.get('/api/wx_openid', async (req, res) => {
 const port = process.env.PORT || 80;
 
 async function bootstrap() {
-  // await initDB();
+  await initDB();
   app.listen(port, () => {
     console.log('启动成功', port);
   });
