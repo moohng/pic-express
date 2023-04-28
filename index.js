@@ -46,7 +46,7 @@ app.post('/api/media_check', async (req, res) => {
 /**
  * 异步推送接口
  */
-app.post('/api/media_check/push', async (req, res) => {
+app.post('/api/media_check_push', async (req, res) => {
   console.log('------------=========', req.body);
   res.send('success');
 });
