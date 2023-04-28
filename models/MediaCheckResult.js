@@ -11,7 +11,7 @@ async function initMediaCheckResult(sequelize) {
         primaryKey: true,
       },
       result: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(500),
         allowNull: false,
         defaultValue: '',
       },
