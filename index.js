@@ -52,7 +52,7 @@ app.post('/api/media_check', async (req, res) => {
 app.get('/api/media_check_result', async (req, res) => {
   const { trace_id } = req.query;
 
-  const item = await MediaCheckResult.findOne({ where: { trace_id } });
+  const item = await MediaCheckResult.findByPk(trace_id);
   if (!item) {
     res.send({ code: 100, msg: '未找到检测结果' });
   } else {

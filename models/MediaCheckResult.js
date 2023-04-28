@@ -8,7 +8,7 @@ async function initMediaCheckResult(sequelize) {
     {
       trace_id: {
         type: DataTypes.STRING,
-        allowNull: false,
+        primaryKey: true,
       },
       result: {
         type: DataTypes.STRING,
